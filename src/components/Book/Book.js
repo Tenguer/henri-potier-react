@@ -8,7 +8,7 @@ function Book(book) {
           <img src={book.book.cover} alt={`Couvertude de : ${book.title}`} />
         </a>
       </div>
-      
+
       <div className="book-info">
         <a href="/" className="book-title">
           <p>{ book.book.title }</p>

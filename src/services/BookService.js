@@ -9,4 +9,9 @@ const apiClient = axios.create({
   }
 });
 
-export default apiClient;
+
+export const getBooks = () => apiClient.get('/books');
+
+export default {
+  getBooks,
+};
