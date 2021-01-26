@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import apiClient from '../../services/BookService'
-import Book from '../Book/Book'
-import './Home.css'
 
-function Home() {
-  const [books, setBooks] = useState([]);
+import React, { useState, useEffect } from "react";
+import { getBooks } from "../../services/BookService"
+import Book from "../Book/Book"
+import "./Home.css"
 
-  useEffect(() => {
-    apiClient.get('/books')
-    .then(res => {
-      console.log(res.data)
-      setBooks(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }, [])
+export default function Home() {
+	const [books, setBooks] = useState([])
 
-  return (
-    <div>
-        {
-          books.map(book => (
-            <Book book={book} key={book.isbn}></Book>
-          ))
-        }
-    </div>
-  );
+  // eslint-disable-next-line 
+  useEffect(async () => {
+		try {
+			const response = await getBooks()
+      setBooks(response.data)
+		} catch (error) {
+			console.error(error)
+		}
+	}, [])
+
+	return (
+		<div>
+			{
+				books.map(({ isbn, title, cover, synopsis, price }) => (
+					<Book
+						key={ isbn }
+						isbn={ isbn }
+						title={ title }
+						cover={ cover }
+						synopsis={ synopsis }
+						price={ price }
+					/>
+				))
+			}
+		</div>
+	)
 }
-
-export default Home;

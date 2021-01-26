@@ -1,25 +1,42 @@
-import React from 'react'
+import React from "react"
+import { Link } from "react-router-dom"
 
-function Book(book) {
-  return (
-    <article className="book">
-      <div className="book-img">
-        <a href="/" className="book-title">
-          <img src={book.book.cover} alt={`Couvertude de : ${book.title}`} />
-        </a>
-      </div>
+export default function Book(props) {
+	let { isbn, title, cover, price  } = props
+  
+	return (
+		<article className="book">
+			<div className="book-img">
+				<Link to={{
+					pathname: `/book/${ isbn }`,
+					state: {
+						...props
+					}
+				}}
+				className="book-title"
+				>
+
+					<img src={ cover } alt={ `Couvertude de : ${ title }` } />
+				</Link>
+			</div>
       
-      <div className="book-info">
-        <a href="/" className="book-title">
-          <p>{ book.book.title }</p>
-        </a>
-        <div>{book.book.price}€</div>
+			<div className="book-info">
+				<Link to={{
+					pathname: `/book/${ isbn }`,
+					state: {
+					...props
+					}
+				}}
+				className="book-title"
+				>
+					<p>{ title }</p>
+				</Link>
 
-        <button className="btn-add">
+				<div>{ price }€</div>
+
+				<button className="btn-add">
           Ajouter au panier
-        </button>
-      </div>
-    </article>
-)}
-
-export default Book;
+				</button>
+			</div>
+		</article>
+	)}
