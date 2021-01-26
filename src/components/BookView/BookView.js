@@ -2,6 +2,7 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 
 export default function BookView() {
+	// TODO éviter let si non nécessaire
 	let { title, cover, isbn, price, synopsis } = useLocation().state
 
 	return (

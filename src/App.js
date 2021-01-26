@@ -8,9 +8,6 @@ export default function App() {
 		<div className="App" id="app">
 			<Router>
 				<Switch>
-					<Route path="/book/:isbn">
-						<BookView />
-					</Route>
 					<Route path="/">
 						<Home />
 					</Route>
