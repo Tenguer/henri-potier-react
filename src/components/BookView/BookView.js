@@ -2,7 +2,7 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 
 export default function BookView() {
-	let { title, cover, isbn, price, synopsis } = useLocation().state
+	const { title, cover, isbn, price, synopsis } = useLocation().state
 
 	return (
 		<div>
