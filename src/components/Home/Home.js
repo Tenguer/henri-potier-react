@@ -6,9 +6,11 @@ import "./Home.css"
 import { Route, Switch } from "react-router-dom";
 // import BookView from "../BookView/BookView";
 // import { useParams } from "@reach/router";
+import AmountButton from '../AmountButton/AmountButton'
 
 export default function Home() {
 	const [books, setBooks] = useState([])
+	const [qty, setQty] = useState(12)
 
 	useEffect(() => {
 		getBooks()
@@ -26,8 +28,27 @@ export default function Home() {
 		// 	selectedBook = books.find(book => book.isbn === bookId);
 		// }
 
+
+		function increase () {
+			setQty(qty + 1)
+			console.log("increase")
+		}
+		
+		function decrease () {
+			if (qty > 0) {
+				setQty(qty - 1)
+			}
+			console.log("decrease")
+		}
+
 	return (
 		<div>
+				<AmountButton
+					qty = { qty }
+					increase = { increase }
+					decrease = { decrease }
+				/> 
+
 			<Switch>
 				{/* <Route path="/book/:isbn" exact>
 					<BookView {...selectedBook} />
