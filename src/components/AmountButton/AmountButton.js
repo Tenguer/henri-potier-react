@@ -1,19 +1,17 @@
 import React from "react"
 import "./AmountButton.css"
 
-export default function Book({ qty = 1, increase, decrease}) {
+export default function Book({ qty = 1, increase, decrease, amount = 0}) {
 
   return (
-		<div className="amount_container">
-      <div>
-        <span>Quantité : </span>
-        { qty }
-      </div>
-      
+    <div className="amount_container" data-testid="increaseButton">
+      <div>{`Quantité : ${qty}`}</div>
+
       <div>
         <button
+          data-testid="increase-button"
           className="amount_btn"
-          onClick={ increase }
+          onClick={ () => increase(amount) }
         >
           +
         </button>

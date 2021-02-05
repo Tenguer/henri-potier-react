@@ -7,10 +7,11 @@ import { Route, Switch } from "react-router-dom";
 // import BookView from "../BookView/BookView";
 // import { useParams } from "@reach/router";
 import AmountButton from '../AmountButton/AmountButton'
+import {increasePure} from "./Home.service";
 
 export default function Home() {
 	const [books, setBooks] = useState([])
-	const [qty, setQty] = useState(12)
+	const [qty, setQty] = useState(0)
 
 	useEffect(() => {
 		getBooks()
@@ -29,14 +30,15 @@ export default function Home() {
 		// }
 
 
-		function increase () {
-			setQty(qty + 1)
+		function increase (amount) {
+			const newQyt = increasePure(qty, amount)
+			setQty(newQyt);
 			console.log("increase")
 		}
-		
-		function decrease () {
+
+		function decrease (amount) {
 			if (qty > 0) {
-				setQty(qty - 1)
+				setQty(qty - amount)
 			}
 			console.log("decrease")
 		}
@@ -44,10 +46,12 @@ export default function Home() {
 	return (
 		<div>
 				<AmountButton
+					data-testid="increaseButton"
+					amount={2}
 					qty = { qty }
 					increase = { increase }
 					decrease = { decrease }
-				/> 
+				/>
 
 			<Switch>
 				{/* <Route path="/book/:isbn" exact>
