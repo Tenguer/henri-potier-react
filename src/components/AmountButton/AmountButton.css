@@ -1,0 +1,22 @@
+.amount_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  padding: 5px;
+  margin: 5px;
+  width: 200px;
+}
+
+.amount_btn {
+  height: 30px;
+  width: 30px;
+  background: #5dacf3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 5px;
+}
