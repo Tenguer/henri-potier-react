@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from "react-router-dom"
 
-import Home from '../Home';
+import Home from './Home';
 
 test.skip('renders home', () => {
     render(<Router><Home /></Router>);

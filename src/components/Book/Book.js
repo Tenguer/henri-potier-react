@@ -11,7 +11,7 @@ export default function Book(props) {
   //   setQty(qty + amount)
   //   console.log("increase")
   // }
-  
+
   // function decrease (amount) {
   //   if (qty > 0) {
   //     setQty(qty - amount)
@@ -49,10 +49,7 @@ export default function Book(props) {
 
 				<div>{ price }€</div>
 
-        <AmountButton
-          data-testid="increaseButton"
-          amount = { 1 }
-				/> 
+          {props.children}
 
         <button className="btn-add">Ajouter au panier</button>
       </div>

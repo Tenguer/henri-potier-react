@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const buttonSlice = createSlice({
-  name: 'button',
-  initialState: {
-    amount: 1,
-    qty: 0
-  },
+  name: 'cart',
+  initialState: {},
   reducers: {
-    increase: state => {
-      state.qty += state.amount;
+    increase: (state, action) => {
+      const prevQty = state[action.isbn]
+      Object.assign(state, { [action.isbn]: prevQty + action.qty });
     },
     decrease: state => {
       if (state.qty > 0) {
@@ -23,3 +21,5 @@ export const { increase, decrease } = buttonSlice.actions;
 export const selectQty = state => state.button.qty;
 
 export default buttonSlice.reducer;
+
+
