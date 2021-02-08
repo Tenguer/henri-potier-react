@@ -4,10 +4,10 @@ import {
   increase,
   decrease,
   selectQty
-} from './buttonSlice'
+} from '../../features/button/buttonSlice'
 import "./AmountButton.css"
 
-export default function Book({amount}) {
+export default function Book() {
   const qty = useSelector(selectQty);
   const dispatch = useDispatch();
 
@@ -21,14 +21,16 @@ export default function Book({amount}) {
       <div>
         <button
           className="amount_btn"
-          onClick={ () => dispatch(increase(amount)) }
+          data-testid="increase-button"
+          onClick={ () => dispatch(increase()) }
         >
           +
         </button>
 
         <button
         className="amount_btn"
-          onClick={ () => dispatch(decrease(amount)) }
+        data-testid="decrease-button"
+          onClick={ () => dispatch(decrease()) }
         >
           -
         </button>

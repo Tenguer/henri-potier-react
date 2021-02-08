@@ -3,16 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 export const buttonSlice = createSlice({
   name: 'button',
   initialState: {
-    amount: 0,
+    amount: 1,
     qty: 0
   },
   reducers: {
     increase: state => {
-      state.qty += 1;
+      state.qty += state.amount;
     },
     decrease: state => {
       if (state.qty > 0) {
-        state.qty -= 1;
+        state.qty -= state.amount;
       }
     }
   },

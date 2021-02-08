@@ -50,6 +50,7 @@ export default function Book(props) {
 				<div>{ price }€</div>
 
         <AmountButton
+          data-testid="increaseButton"
           amount = { 1 }
 				/> 
 
