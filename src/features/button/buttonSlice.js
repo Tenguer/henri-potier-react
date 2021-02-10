@@ -4,16 +4,24 @@ export const buttonSlice = createSlice({
   name: 'button',
   initialState: {
     amount: 1,
-    qty: 0
+    qty: 0,
+    bookQty: []
   },
   reducers: {
-    increase: state => {
-      state.qty += state.amount;
+    increase: (state, action) => {
+      state.bookQty.push({[action.payload.isbn]: action.payload.amount})
+      // state.qty += action.payload;
+      this.findBook()
     },
-    decrease: state => {
+    decrease: (state, action) => {
       if (state.qty > 0) {
-        state.qty -= state.amount;
+        state.qty -= action.payload;
       }
+    },
+    findBook: () => {
+      console.log('findbook')
+      // console.log(state, action.payload.isbn)
+      // return state.bookQty.findIndex(action.payload.isbn)
     }
   },
 });

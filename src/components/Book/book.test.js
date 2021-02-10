@@ -1,11 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Book from '../Book'
-// import createStore from './createReduxStore'
-import buttonStore from '../../../features/button/buttonSlice'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import Book from './Book'
+import buttonStore from '../../features/button/buttonSlice'
 
-// const store = createStore()
 
 test('renders book', () => {
   render(
