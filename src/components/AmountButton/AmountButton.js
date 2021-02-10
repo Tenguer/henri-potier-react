@@ -7,22 +7,24 @@ import {
 } from '../../features/button/buttonSlice'
 import "./AmountButton.css"
 
-export default function Book() {
+export default function Book({ amount, isbn }) {
   const qty = useSelector(selectQty);
   const dispatch = useDispatch();
+  console.log( 'amountbutton', amount, isbn )
 
   return (
 		<div className="amount_container">
       <div>
         <span>Quantité : </span>
         { qty }
+        0
       </div>
       
       <div>
         <button
           className="amount_btn"
           data-testid="increase-button"
-          onClick={ () => dispatch(increase()) }
+          onClick={ () => dispatch(increase(amount, isbn)) }
         >
           +
         </button>
@@ -30,7 +32,7 @@ export default function Book() {
         <button
         className="amount_btn"
         data-testid="decrease-button"
-          onClick={ () => dispatch(decrease()) }
+          onClick={ () => dispatch(decrease({amount, isbn})) }
         >
           -
         </button>
