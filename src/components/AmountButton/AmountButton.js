@@ -24,7 +24,7 @@ export default function Book({ amount, isbn }) {
         <button
           className="amount_btn"
           data-testid="increase-button"
-          onClick={ () => dispatch(increase(amount, isbn)) }
+          onClick={ () => dispatch(increase({amount, isbn})) }
         >
           +
         </button>
