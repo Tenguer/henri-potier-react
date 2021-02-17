@@ -2,29 +2,27 @@ import React from "react"
 import {  useSelector, useDispatch } from 'react-redux'
 import {
   increase,
-  decrease,
-  selectQty
-} from '../../features/button/buttonSlice'
-import "./AmountButton.css"
+  decrease
+} from '../../features/cart/cartSlice'
+import "./AmountButton.scss"
 
 export default function Book({ amount, isbn }) {
-  const qty = useSelector(selectQty);
+  const stateAmount =  useSelector(state => state.cart.temporyCart[isbn] ? state.cart.temporyCart[isbn] : 0)
+
   const dispatch = useDispatch();
-  console.log( 'amountbutton', amount, isbn )
 
   return (
 		<div className="amount_container">
       <div>
         <span>Quantité : </span>
-        { qty }
-        0
+        { stateAmount } 
       </div>
-      
+
       <div>
         <button
           className="amount_btn"
           data-testid="increase-button"
-          onClick={ () => dispatch(increase({amount, isbn})) }
+          onClick={ () => dispatch(increase({amount, isbn })) }
         >
           +
         </button>
@@ -32,7 +30,7 @@ export default function Book({ amount, isbn }) {
         <button
         className="amount_btn"
         data-testid="decrease-button"
-          onClick={ () => dispatch(decrease({amount, isbn})) }
+          onClick={ () => dispatch(decrease({amount, isbn })) }
         >
           -
         </button>

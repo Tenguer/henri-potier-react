@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../features/cart/cartSlice'
 import AmountButton from '../../components/AmountButton/AmountButton'
 
 export default function Book(props) {
   const { isbn, title, cover, price  } = props
+  const dispatch = useDispatch();
+
   
   return (
     <article className="book">
@@ -41,7 +45,12 @@ export default function Book(props) {
           isbn = { isbn }
 				/> 
 
-        <button className="btn-add">Ajouter au panier</button>
+        <button
+          className="btn-add"
+          onClick={ () => dispatch(addToCart({isbn})) }
+        >
+          Ajouter au panier
+        </button>
       </div>
     </article>
   )

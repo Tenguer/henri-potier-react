@@ -1,0 +1,37 @@
+.navbar {
+  height: 50px;
+  width: 100vw;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  background: white;
+
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin-right: 10px;
+    height: 40px;
+    padding: 0 15px;
+
+    &:hover {
+      background: rgba(219, 212, 212, 1);
+      border-radius: 5px;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    color: blue;
+
+    &:hover {
+      color: red;
+      text-decoration: underline;
+    }
+  }
+}

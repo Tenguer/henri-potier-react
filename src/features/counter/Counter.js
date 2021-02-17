@@ -7,7 +7,7 @@ import {
   incrementAsync,
   selectCount,
 } from './counterSlice';
-import styles from './Counter.module.css';
+import styles from './Counter.module.scss';
 
 export function Counter() {
   const count = useSelector(selectCount);
@@ -42,15 +42,13 @@ export function Counter() {
         />
         <button
           className={styles.button}
-          onClick={() =>
-            dispatch(incrementByAmount(Number(incrementAmount) || 0))
-          }
+          onClick={ () => dispatch(incrementByAmount(Number(incrementAmount) || 0)) }
         >
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(Number(incrementAmount) || 0))}
+          onClick={ () => dispatch(incrementAsync(Number(incrementAmount) || 0)) }
         >
           Add Async
         </button>

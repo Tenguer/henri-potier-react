@@ -6,12 +6,12 @@ export default function BookView() {
 
 	return (
 		<div>
-			<div style={{color: "red"}}>Hello c'est le BookView de : { isbn }</div>
-			<div style={{color: "orange"}}>cover: { cover }</div>
-			<div style={{color: "green"}}>isbn: { isbn }</div>
-			<div style={{color: "blue"}}>price: { price }</div>
-			<div style={{color: "purple"}}>synopsis: { synopsis }</div>
-			<div style={{color: "brown"}}>title: { title }</div>
+			<div>Hello c'est le BookView de : { isbn }</div>
+			<div>cover: { cover }</div>
+			<div>isbn: { isbn }</div>
+			<div>price: { price }</div>
+			<div>synopsis: { synopsis }</div>
+			<div>title: { title }</div>
 		</div>
 	)
 }
