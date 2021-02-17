@@ -3,7 +3,7 @@ import { getBooks } from "../../services/bookService"
 import Book from "../../components/Book/Book"
 import BookView from "../BookView/BookView"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import "./Home.css"
+import "./Home.scss"
 
 export default function Home() {
 	const [books, setBooks] = useState([])
