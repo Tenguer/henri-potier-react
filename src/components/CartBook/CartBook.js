@@ -1,24 +1,21 @@
 import React from 'react'
 import './CartBook.scss'
 
-function CartBook ({ cover, title, price, qty, isbn }) {
+function CartBook ({ cover, title, cartPrice, qty }) {
   return (
     <div className="cartbook__container">
       <div className="cartbook__img">
-        <img src={ cover } alt={ `Couverture du livre ${title}`}/>
+        <img src={ cover } alt={ `Couverture du livre ${ title }` }/>
       </div>
       <div className="cartbook__information">
         <div>
           Title: { title }
         </div>
-        {/* <div>
-          isbn: { isbn }
-        </div> */}
-        <div>
-          Price : { price * qty}
-        </div>
         <div>
           Quantité : { qty }
+        </div>
+        <div>
+          Prix : { cartPrice } €
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import React from "react"
 import {  useSelector, useDispatch } from 'react-redux'
 import {
-  increase,
-  decrease
+  increaseBookToCart,
+  decreaseBookToCart
 } from '../../features/cart/cartSlice'
 import "./AmountButton.scss"
 
@@ -22,7 +22,7 @@ export default function Book({ amount, isbn }) {
         <button
           className="amount_btn"
           data-testid="increase-button"
-          onClick={ () => dispatch(increase({amount, isbn })) }
+          onClick={ () => dispatch(increaseBookToCart({amount, isbn })) }
         >
           +
         </button>
@@ -30,7 +30,7 @@ export default function Book({ amount, isbn }) {
         <button
         className="amount_btn"
         data-testid="decrease-button"
-          onClick={ () => dispatch(decrease({amount, isbn })) }
+          onClick={ () => dispatch(decreaseBookToCart({amount, isbn })) }
         >
           -
         </button>
