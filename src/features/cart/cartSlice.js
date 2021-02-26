@@ -5,7 +5,8 @@ export const cartSlice = createSlice({
   initialState: {
     cartList: {},
     temporyCart: {},
-    temporyCart: {}
+    offer: {},
+    offerPath: []
   },
   reducers: {
     addToCart(state, action) {
@@ -39,6 +40,12 @@ export const cartSlice = createSlice({
         state.temporyCart[isbn] -= 1
       }
     },
+    createOfferPath(state, action) {
+      const { cartList } = action.payload
+
+      for (const isbn in cartList) {
+        state.offerPath.push(isbn)
+      }
     }
   },
 });
@@ -49,6 +56,7 @@ export const selectCart = state => state.cart.cartList
 
 export const selectAmount = (state, isbn) => state.cart.cartList[isbn] ? state.cart.cartList[isbn] : 0
 
+export const selectOfferPath = state => state.cart.offerPath
 
 
 export default cartSlice.reducer;
