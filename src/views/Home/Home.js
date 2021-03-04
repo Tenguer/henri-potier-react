@@ -1,47 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { getBooks } from "../../services/bookService"
+import React from "react";
 import Book from "../../components/Book/Book"
-import BookView from "../BookView/BookView"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { selectBooks } from "../../features/books/booksSlice"
+import { useSelector } from "react-redux"
 import "./Home.scss"
 
 export default function Home() {
-	const [books, setBooks] = useState([])
+  const booksList = useSelector(selectBooks)
 
-  // eslint-disable-next-line 
-  useEffect(async () => {
-		try {
-			const response = await getBooks()
-      setBooks(response.data)
-		} catch (error) {
-			console.error(error)
-		}
-	}, [])
+  const renderBookList = () => (
+    booksList.map(({ isbn, title, cover, synopsis, price }) => (
+      <Book
+        key={ isbn }
+        isbn={ isbn }
+        title={ title }
+        cover={ cover }
+        synopsis={ synopsis }
+        price={ price }
+      />
+    ))
+  )
 
   return (
     <div>
-      <Router>
-				<Switch>
-					<Route path="/book/:isbn">
-						<BookView />
-					</Route>
-
-					<Route path="/">
-            {
-              books.map(({ isbn, title, cover, synopsis, price }) => (
-                <Book
-                  key={ isbn }
-                  isbn={ isbn }
-                  title={ title }
-                  cover={ cover }
-                  synopsis={ synopsis }
-                  price={ price }
-                />
-              ))
-            }
-      		</Route>
-				</Switch>
-			</Router>
+      {
+        renderBookList()
+      }
     </div>
   )
 }

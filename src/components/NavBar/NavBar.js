@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import Home from '../../views/Home/Home'
 import CartView from '../../views/CartView/CartView'
+import BookView from "../../views/BookView/BookView"
 import './NavBar.scss'
 
 function NavBar() {
@@ -23,19 +24,22 @@ function NavBar() {
               to="/cart"
               className="navbar__link"
             >
-              Pannier
+              Panier
             </Link>
           </li>
         </ul>
       </nav>
 
       <Switch>
-        <Route path="/cart">
+        <Route path="/cart" exact>
           <CartView />
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Home />
         </Route>
+        <Route path="/book/:isbn">
+						<BookView />
+					</Route>
       </Switch>
     </div>
   </Router>
