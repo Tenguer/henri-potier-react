@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getBooks } from "../../services/bookService"
 
 export const bookSlice = createSlice({
   name: "book",
   initialState: {
-    booksList: {},
+    booksList: []
   },
   reducers: {
     saveBooks(state, action) {
@@ -16,21 +17,16 @@ export const { saveBooks } = bookSlice.actions;
 
 export const selectBooks = state => state.book.booksList
 
-export const selectBooksCart = (state, cartList) => {
-  const booksCart = []
-  let temporyBook = {}
-  
-  for (const isbn in cartList) {
-    for (const index in state.book.booksList) {
-      if (state.book.booksList[index].isbn === isbn) {
-        temporyBook = { ...state.book.booksList[index] }
-        temporyBook["cartQty"] = cartList[isbn]
-        temporyBook["cartPrice"] = state.book.booksList[index].price * temporyBook.cartQty
-        booksCart.push(temporyBook)
-      }
-    }
-  }
-  return booksCart
-}
-
 export default bookSlice.reducer
+
+// Asynchronous thunk action
+export function fetchBooks() {
+  return async dispatch => {
+    try {
+			const response = await getBooks()
+      dispatch(saveBooks(response.data))
+		} catch (error) {
+			console.error(error)
+		}
+  }
+}
