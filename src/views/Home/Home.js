@@ -8,7 +8,7 @@ export default function Home() {
   const booksList = useSelector(selectBooks)
 
   const renderBookList = () => (
-    booksList.map(({ isbn, title, cover, synopsis, price }) => (
+    Object.values(booksList).map(({ isbn, title, cover, synopsis, price }) => (
       <Book
         key={ isbn }
         isbn={ isbn }
