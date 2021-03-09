@@ -11,38 +11,13 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
-      const { isbn } = action.payload
+      const { isbn, quantity, quantityPrice } = action.payload
 
-      if (state.temporyCart[isbn]) {
-        state.cartList[isbn] = state.cartList[isbn] > 0 ? state.cartList[isbn] + state.temporyCart[isbn] : state.temporyCart[isbn]
-        delete state.temporyCart[isbn]
-      } else if (state.cartList[isbn]) {
-        state.cartList[isbn] += 1
-      }
-      else  {
-        state.cartList[isbn] = 1
-      }
+      state.cartList[isbn] = { isbn, quantity, quantityPrice }
     },
-    increaseBookToCart(state, action) {
-      const { isbn } = action.payload
 
-      if (state.temporyCart[isbn]) {
-        state.temporyCart[isbn] += 1
-      } else {
-        state.temporyCart[isbn] = 1
-      }
-    },
-    decreaseBookToCart(state, action) {
-      const { isbn } = action.payload
-
-      if (state.temporyCart[isbn] === 1) {
-        delete state.temporyCart[isbn]
-      } else if (state.temporyCart[isbn]) {
-        state.temporyCart[isbn] -= 1
-      }
-    },
     addCartPrice(state, action) {
-      console.log("here")
+      console.log("here addCartPrice")
       state.cartPriceWithOffer = action.payload
     }
   }
@@ -52,48 +27,23 @@ export const { increaseBookToCart, decreaseBookToCart, addToCart, cartPriceTotal
 
 export const selectAmount = (state, isbn) => state.cart.cartList[isbn] ? state.cart.cartList[isbn] : 0
 
-export const selectBooksCart = state => {
-  const booksCart = []
-  const booksList = state.book.booksList
-  const cartList = state.cart.cartList
-  let temporyBook = {}
-  
-  for (const isbn in cartList) {
-    for (const index in booksList) {
-      if (booksList[index].isbn === isbn) {
-        temporyBook = { ...booksList[index] }
-        temporyBook["qty"] = cartList[isbn]
-        temporyBook["cartPrice"] = booksList[index].price * cartList[isbn]
-        booksCart.push(temporyBook)
-      }
-    }
-  }
-  return booksCart
-}
-
-export const selectCartPriceTotal = (cartList) => {
+export const selectCartPriceTotal = (booksList) => {
   let cartPrice = 0
+  const booksValues = Object.values(booksList)
 
-  for (let i = 0; i < cartList.length; i++) {
-    cartPrice += cartList[i].cartPrice
-  }
+  booksValues.forEach(book => cartPrice += book.quantityPrice)
   return cartPrice
 }
 
-export const selectOfferPath = state => {
-  const { cartList } = state.cart
-  const cartPath = []
+export const selectOfferPath = (cartList) => {
+  const newCartList = Object.values(cartList)
+  let cartPath = []
 
-  if (cartList) {
-    for (const isbn in cartList) {
-      cartPath.push(isbn)
-    }
+  if (newCartList.length > 0) {
+    newCartList.forEach(book => cartPath.push(book.isbn))
   }
   return cartPath
 }
-
-export const selectCartPriceWithOffer = state => state.cart.cartPriceWithOffer
-
 
 // Asynchronous thunk action
 export function fetchOffers(pathCart, totalPrice) {
@@ -102,11 +52,12 @@ export function fetchOffers(pathCart, totalPrice) {
 			const response = await getOffer(pathCart)
       const priceMinusOffer = offerCalc(response.data.offers, totalPrice)
 
-      dispatch(addCartPrice(priceMinusOffer))
+      return addCartPrice(priceMinusOffer)
 		} catch (error) {
 			console.error(error)
 		}
   }
 }
+
 
 export default cartSlice.reducer;

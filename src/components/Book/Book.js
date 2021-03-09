@@ -1,14 +1,26 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../../features/cart/cartSlice'
-import AmountButton from '../../components/AmountButton/AmountButton'
+import { increaseBookQuantity } from "../../features/books/booksSlice"
+import QuantityButton from '../QuantityButton/QuantityButton'
 
 export default function Book(props) {
-  const { isbn, title, cover, price  } = props
+  const { isbn, title, cover, price, booksCounter, increaseCompter, decreaseCompter, setBooksCounter } = props
   const dispatch = useDispatch();
 
-  
+  const addCart = ({ isbn }) => {
+    if (booksCounter[isbn]) {
+      const quantity = booksCounter[isbn]
+      const newBooksCounter = { ...booksCounter }
+
+      dispatch(increaseBookQuantity({ isbn, quantity }))
+      delete newBooksCounter[isbn]
+      setBooksCounter(newBooksCounter)
+    } else {
+      dispatch(increaseBookQuantity({ isbn, "quantity" : 1 }))
+    }
+  }
+
   return (
     <article className="book">
       <div className="book-img">
@@ -33,21 +45,27 @@ export default function Book(props) {
             }
           }}
           className="book-title"
-          >
+        >
             <p>{ title }</p>
 				</Link>
 
 				<div>{ price }€</div>
 
-        <AmountButton
+        <div>
+          <span>Quantité : </span>
+          { booksCounter[isbn] || 0 }
+        </div>
+
+        <QuantityButton
           data-testid="increaseButton"
-          amount = { 1 }
           isbn = { isbn }
+          increaseCompter = { increaseCompter }
+          decreaseCompter = { decreaseCompter }
 				/> 
 
         <button
           className="btn-add"
-          onClick={ () => dispatch(addToCart({isbn})) }
+          onClick={ () => addCart({isbn}) }
         >
           Ajouter au panier
         </button>

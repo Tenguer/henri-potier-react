@@ -1,50 +1,52 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import CartBook from "../../components/CartBook/CartBook"
 import {
-	selectBooksCart,
 	selectCartPriceTotal,
 	selectOfferPath,
-	fetchOffers,
-	selectCartPriceWithOffer,
-	// addCartPrice
+	fetchOffers
 } from  "../../features/cart/cartSlice"
+import { selectBooksListTocart } from "../../features/books/booksSlice"
 
 export default function CartView() {
-	const cartList = useSelector(state => selectBooksCart(state))
-	const totalPrice = useSelector(() => selectCartPriceTotal(cartList))
-	const pathCart = useSelector(state => selectOfferPath(state))
   const dispatch = useDispatch()
-	const cartPriceWithOffer = useSelector(state => selectCartPriceWithOffer(state))
- 
+	const cartList = useSelector(state => selectBooksListTocart(state))
+	const totalPrice = useSelector(() => selectCartPriceTotal(cartList))
+	const pathCart = useSelector(() => selectOfferPath(cartList))
+	const [offer, setoffer] = useState(0)
+
 	// eslint-disable-next-line
   useEffect(() => {
 		if (pathCart.length > 0) {
-			dispatch(fetchOffers(pathCart, totalPrice))
+			dispatch(fetchOffers(pathCart, totalPrice)).then(response => {
+				setoffer(response.payload)
+			})
 		}
 	}, [dispatch, pathCart, totalPrice])
+
+  const renderBookList = () => (
+    Object.values(cartList).map(({ isbn, title, cover, price, quantityPrice, quantity }) => (
+      <CartBook
+				key = { isbn }
+				title = { title }
+				cover = { cover }
+				price = { price }
+				quantityPrice = { quantityPrice }
+				quantity = { quantity }
+      />
+    ))
+  )
 
 	return (
 		<div>
       <div>Cart view</div>
-
 			{
-				cartList.map(({ isbn, title, cover, price, cartPrice, qty }) => 
-					<CartBook
-						key = { isbn }
-						title = { title }
-						cover = { cover }
-						price = { price }
-						cartPrice = { cartPrice }
-						qty = { qty }
-					>
-					</CartBook>
-				)
+				renderBookList()
 			}
 			<div>
 				Prix du panier: { totalPrice } €
 			</div>
-			<div>Prix total avec réduction : { cartPriceWithOffer } €</div>
+			<div>Prix total avec réduction : {offer} €</div>
 		</div>
 	)
 }
