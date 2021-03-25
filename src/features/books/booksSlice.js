@@ -26,6 +26,13 @@ export const bookSlice = createSlice({
         state.booksList[isbn].quantity -= 1
         state.booksList[isbn].quantityPrice = state.booksList[isbn].price * state.booksList[isbn].quantity
       }
+    },
+    updateQuantity(state, action) {
+      const {isbn, quantity} = action.payload;
+
+      if(state.booksList[isbn]) {
+        state.booksList[isbn].quantity += quantity;
+      }
     }
   }
 })

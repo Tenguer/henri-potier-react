@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux"
 import Book from "../../components/Book/Book"
-import { selectBooksList } from "../../features/books/booksSlice"
+import {increaseBookQuantity, selectBooksList} from "../../features/books/booksSlice"
 import "./Home.scss"
+import Quantity from "../../components/Quantity/Quantity";
+import BookQuantity from "../../components/BookQuantity/BookQuantity";
 
 export default function Home() {
   const booksList = useSelector(selectBooksList)
-  const [booksCounter, setBooksCounter] = useState({})
 
-  const increaseCompter = ({ isbn }) => {
-    if (booksCounter[isbn]) {
-      let tempo = { ...booksCounter }
-      tempo[isbn] = tempo[isbn] + 1
-      setBooksCounter(tempo)
-    } else {
-      const newBook = { [isbn] : 1 }
-      setBooksCounter({ ...booksCounter, ...newBook })
-    }
-  }
-
-  const decreaseCompter = ({ isbn }) => {
-    if (booksCounter[isbn]) {
-      let tempo = { ...booksCounter }
-      tempo[isbn] = tempo[isbn] - 1
-      setBooksCounter(tempo)
-    }
-  }
+  const addToCart = () => dispatch(updateQuantity({ isbn, quantity }));
 
   const renderBookList = () => (
     Object.values(booksList).map(({ isbn, title, cover, synopsis, price, quantity, quantityPrice }) => (
@@ -36,11 +20,12 @@ export default function Home() {
         cover = { cover }
         synopsis = { synopsis }
         price = { price }
-        booksCounter = { booksCounter }
-        increaseCompter = { increaseCompter }
-        decreaseCompter = { decreaseCompter }
-        setBooksCounter = { setBooksCounter }
-      />
+      >
+        <BookQuantity
+          isbn={isbn}
+          onAddToCart={addToCart}
+       />
+      </Book>
     ))
   )
 

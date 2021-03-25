@@ -1,14 +1,14 @@
 import React from "react"
-import "./QuantityButton.scss"
+import "./Quantity.scss"
 
-export default function Book({ isbn, increaseCompter, decreaseCompter  }) {
+export default function Quantity({ increaseCompter, decreaseCompter  }) {
   return (
-		<div className="quantity_container">
+    <div className="quantity_container">
       <div>
         <button
           className="quantity_btn"
           data-testid="increase-button"
-          onClick={ () => increaseCompter({ isbn }) }
+          onClick={ () => increaseCompter() }
         >
           +
         </button>
@@ -16,10 +16,10 @@ export default function Book({ isbn, increaseCompter, decreaseCompter  }) {
         <button
           className="quantity_btn"
           data-testid="decrease-button"
-          onClick={ () => decreaseCompter({ isbn }) }
+          onClick={ () => decreaseCompter() }
         >
           -
         </button>
       </div>
-		</div>
+    </div>
 )}
