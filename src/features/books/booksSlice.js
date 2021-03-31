@@ -6,23 +6,31 @@ export const bookSlice = createSlice({
   name: "book",
   initialState: {
     booksList: [],
-    copyBooks: []
   },
   reducers: {
     saveBooksList(state, action) {
       state.booksList = action.payload
     },
-    saveCopyBooks(state, action) {
-      state.copyBooks = action.payload
+    booksQuantityManager(state, action) {
+      const { isbn, quantity } = action.payload
+
+      if (state.booksList[isbn].quantity + quantity < 0) {
+        state.booksList[isbn].quantity = 0
+        state.booksList[isbn].quantityPrice = 0
+      } else {
+        const bookPrice = state.booksList[isbn].price
+        state.booksList[isbn].quantity += quantity
+        state.booksList[isbn].quantityPrice = bookPrice * state.booksList[isbn].quantity 
+      }
     }
   }
 })
 
-export const { saveCopyBooks, saveBooksList } = bookSlice.actions;
-
-export const selectBooks = state => state.book.booksList
-
 export default bookSlice.reducer
+
+export const { saveBooksList, booksQuantityManager } = bookSlice.actions;
+
+export const selectBooksList = state => state.book.booksList
 
 // Asynchronous thunk action
 export function fetchBooks() {
@@ -32,7 +40,6 @@ export function fetchBooks() {
       const books = response.data
       const booksWithQuantity = newBooksWithQuantity(books)
 
-      dispatch(saveCopyBooks(books))
       dispatch(saveBooksList(booksWithQuantity))
 		} catch (error) {
 			console.error(error)

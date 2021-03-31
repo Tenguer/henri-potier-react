@@ -9,9 +9,7 @@ const apiClient = axios.create({
 	}
 })
 
-export const getBooks = () => { return apiClient.get("/books") }
-export const getOffer = (books) => {
-  return apiClient.get(`/books/${ books }/commercialOffers`)
-}
+export const getBooks = () => apiClient.get("/books")
+export const getOffer = (books) => apiClient.get(`/books/${ books }/commercialOffers`) 
 
 export default apiClient;
