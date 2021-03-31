@@ -1,3 +1,5 @@
+import { getOffer } from "../../services/bookService"
+
 export function offerCalc(offers, totalPrice) {
     let offer = 0;
     let finalPrice = totalPrice;
@@ -19,4 +21,28 @@ export function offerCalc(offers, totalPrice) {
       }
     }
   return finalPrice
+}
+
+export function getCartPrice(cartList) {
+  const booksValues = Object.values(cartList)
+  let cartPrice = 0
+
+  booksValues.forEach(book => cartPrice += book.quantityPrice)
+  return cartPrice
+}
+
+export function getOfferPath(cartList) {
+  return cartList.map(book => 
+    Array.from(Array(book.quantity)).map(() => book.isbn)
+  )
+}
+
+export async function fetchOffers({ cartPrice, cartList}) {
+  try {
+    const path = getOfferPath(cartList)
+    const response = await getOffer(path)
+    return offerCalc(response.data.offers, cartPrice)
+  } catch (error) {
+    console.error(error)
+  }
 }

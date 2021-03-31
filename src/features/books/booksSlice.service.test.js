@@ -43,7 +43,8 @@ describe("newBooksWithQuantity", () => {
     // when
     const result = newBooksWithQuantity(books)
     // then
-    expect(result).toEqual([{
+    expect(result).toEqual(
+      {
       "c8fabf68-8374-48fe-a7ea-a00ccd07afff": {
         isbn: "c8fabf68-8374-48fe-a7ea-a00ccd07afff",
         title: "Henri Potier à l'école des sorciers",
@@ -93,6 +94,6 @@ describe("newBooksWithQuantity", () => {
         quantity: 0,
         quantityPrice: 0
       }
-    }])
+    })
   })
 })

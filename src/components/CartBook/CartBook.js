@@ -1,7 +1,7 @@
 import React from 'react'
 import './CartBook.scss'
 
-function CartBook ({ cover, title, cartPrice, qty }) {
+function CartBook ({ cover, title, quantity, quantityPrice }) {
   return (
     <div className="cartbook__container">
       <div className="cartbook__img">
@@ -12,12 +12,12 @@ function CartBook ({ cover, title, cartPrice, qty }) {
           Title: { title }
         </div>
         <div>
-          Quantité : { qty }
+          Quantité : { quantity }
         </div>
         <div>
-          Prix : { cartPrice } €
+          Prix : { quantityPrice } €
         </div>
-      </div>
+      </div>  
     </div>
   )
 }

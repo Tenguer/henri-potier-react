@@ -1,15 +1,4 @@
-import bookSlice, { saveCopyBooks, saveBooksList, selectBooks } from "./booksSlice"
-
-describe("saveCopyBooks", () => {
-  it("Save book to state", () => {
-    // given 
-    const state = { booksList: {}, copyBooks: {} };
-    // when
-    const result = bookSlice(state, { type: saveCopyBooks.type, payload: { "123" : 1 }})
-    // then
-    expect(result).toEqual({ booksList: {}, copyBooks: { "123": 1 }})
-  })
-})
+import bookSlice, { saveBooksList, selectBooks } from "./booksSlice"
 
 describe("saveBooksList", () => {
   it("saveBooksList to state", () => {
@@ -25,11 +14,10 @@ describe("saveBooksList", () => {
 describe("selectBooks", () => {
   it("Return books", () => {
     //given
-    const state = { book: { booksList: { "123":2, "12":3, "24":19 }, saveCopyBooks: {} } }
+    const state = { book: { booksList: { "123":2, "12":3, "24":19 }, copyBooks: {} } }
     // when
     const result = selectBooks(state)
     // then
     expect(result).toEqual({ "123":2, "12":3, "24":19})
   })
 })
-
